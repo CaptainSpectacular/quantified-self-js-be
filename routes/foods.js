@@ -13,4 +13,13 @@ router.get("/", function(req, res, next) {
     });
 });
 
+//POST foods
+router.post("/", function(req, res, next) {
+    database.raw("INSERT INTO foods (name, calories) VALUES (?, ?) RETURNING *", [req.body.name, req.body.calories]).then((data) => {
+        res.send(data.rows[0]);
+    }).catch((error) => {
+        throw(error);
+    });
+});
+
 module.exports = router;
