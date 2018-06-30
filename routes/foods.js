@@ -1,16 +1,10 @@
-const environment = process.env.NODE_ENV || "development";
-const configuration = require("../knexfile")[environment];
-const database = require("knex")(configuration)
 var express = require("express");
 var router = express.Router();
+const Food = require("../models/food");
 
 // GET foods
 router.get("/", function(req, res, next) {
-    database.raw("SELECT * FROM foods").then((data) => {
-        res.send(data.rows); 
-    }).catch((error) => {
-        next();
-    });
+    Food.all().then(foods => res.json(foods));
 });
 
 // GET food
