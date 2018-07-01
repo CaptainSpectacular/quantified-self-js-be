@@ -1,6 +1,7 @@
 const environment = process.env.NODE_ENV || "development";
 const configuration = require("../knexfile")[environment];
 const database = require("knex")(configuration)
+const Food = require("../models/food");
 
 class Meal{
 
@@ -20,6 +21,11 @@ class Meal{
                                 .catch(() => {
                                     return 0;
                                 });
+    };
+
+    static add_food(meal_id, food_id) {
+        return database("food_meals")
+               .insert({meal_id: meal_id, food_id: food_id})
     };
 
     static foods(meal) {
