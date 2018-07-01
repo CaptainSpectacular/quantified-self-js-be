@@ -26,6 +26,7 @@ class Meal{
     static add_food(meal_id, food_id) {
         return database("food_meals")
                .insert({meal_id: meal_id, food_id: food_id})
+               .return([Meal.find(meal_id), Food.find(food_id)]);
     };
 
     static foods(meal) {

@@ -21,7 +21,7 @@ router.post("/:meal_id/foods/:food_id", function(req, res, next) {
 
     Meal.add_food(meal_id, food_id).then((meal) => {
         // Figure out how to get the meal and food names
-        var message = {"message": `Successfully added to `}
+        var message = {"message": `Successfully added ${meal[1]._rejectionHandler0.name} to ${meal[0]._rejectionHandler0.name}`}
         meal ? res.json(message) : next();
     }).catch((error) => {
         next(); 
