@@ -17,6 +17,11 @@ class Food {
                                 .returning(["id", "name", "calories"]);
     };
 
+    static update(id, attrs) {
+        return database("foods").where("id", id).update(attrs)
+                                .returning(["id", "name", "calories"])
+    };
+
     static delete(id) {
         return database("foods").where("id", id).del();
     };

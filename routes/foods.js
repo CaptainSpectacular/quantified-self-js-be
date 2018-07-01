@@ -21,37 +21,12 @@ router.post("/", function(req, res, next) {
 // PATCH foods
 router.patch("/:id", function(req, res, next) {
     var id = req.url.split("/")[1];
-    var name = req.body.name;
-    var calories = req.body.calories;
-
-    if (name && calories) {
-        database.raw("UPDATE foods SET name = ?, calories = ? WHERE id = ?", [name, calories, id]).then((data) => {
-            res.send(data);
-        }).catch((error) => {
-            console.log(error);
-            next();
-        });
-    } else if (name) {
-        database.raw("UPDATE foods SET name = ? WHERE id = ?", [name, id]).then((data) => {
-            res.send(data);
-        }).catch((error) => {
-            console.log(error);
-            next();
-        });
-    } else {
-        database.raw("UPDATE foods SET calories = ? WHERE id = ?", [calories, id]).then((data) => {
-            res.send(data);
-        }).catch((error) => {
-            console.log(error);
-            next();
-        });
-    };
+    Food.update(id, req.body.food).then(food => res.json(food[0]));
 });
 
 // DELETE foods
 router.delete("/:id", function(req, res, next) {
     var id = req.url.split("/")[1];
-    console.log("sup");
     Food.delete(id).then(res.sendStatus(204));
 });
 
