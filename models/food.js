@@ -14,7 +14,11 @@ class Food {
 
     static create(attrs) {
         return database("foods").insert(attrs)
-                                .returning(["id", "name", "calories"])
+                                .returning(["id", "name", "calories"]);
+    };
+
+    static delete(id) {
+        return database("foods").where("id", id).del();
     };
 
 };

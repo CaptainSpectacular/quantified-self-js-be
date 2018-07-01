@@ -51,11 +51,8 @@ router.patch("/:id", function(req, res, next) {
 // DELETE foods
 router.delete("/:id", function(req, res, next) {
     var id = req.url.split("/")[1];
-    database.raw("DELETE FROM foods WHERE id = ?", id).then((data) => {
-        res.send(data);
-    }).catch((error) => {
-        next();
-    });
+    console.log("sup");
+    Food.delete(id).then(res.sendStatus(204));
 });
 
 module.exports = router;
