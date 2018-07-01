@@ -14,7 +14,8 @@ class Food {
 
     static create(attrs) {
         return database("foods").insert(attrs)
-                                .returning(["id", "name", "calories"]);
+                                .returning(["id", "name", "calories"])
+                                .then(food => food[0]).catch(() => 0);
     };
 
     static update(id, attrs) {

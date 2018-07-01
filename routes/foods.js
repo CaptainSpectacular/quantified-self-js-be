@@ -11,17 +11,15 @@ router.get("/", function(req, res, next) {
 router.get("/:id", function(req, res, next) {
     var id = req.url.split("/")[1];
     Food.find(id).then((food) => {
-        if (food) {
-            res.json(food);
-        } else {
-            next();
-        };
+        food ? res.json(food) : next();
     });
 });
 
 //POST foods
 router.post("/", function(req, res, next) {
-    Food.create(req.body.food).then(food => res.json(food[0]));
+    Food.create(req.body.food).then((food) => {
+        food ? res.json(food) : res.sendStatus(400);
+    });
 });
 
 // PATCH foods
