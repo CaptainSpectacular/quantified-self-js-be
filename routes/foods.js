@@ -10,20 +10,12 @@ router.get("/", function(req, res, next) {
 // GET food
 router.get("/:id", function(req, res, next) {
     var id = req.url.split("/")[1];
-    database.raw("SELECT * FROM foods WHERE id = ?", id).then((data) => {
-        res.send(data.rows[0]);
-    }).catch((error) => {
-        next();
-    });
+    Food.find(id).then(food => res.json(food[0]));
 });
 
 //POST foods
 router.post("/", function(req, res, next) {
-    database.raw("INSERT INTO foods (name, calories) VALUES (?, ?) RETURNING *", [req.body.name, req.body.calories]).then((data) => {
-        res.send(data.rows[0]);
-    }).catch((error) => {
-        next();
-    });
+    Food.create(req.body.food).then(food => res.json(food[0]));
 });
 
 // PATCH foods
