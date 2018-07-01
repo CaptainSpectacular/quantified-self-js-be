@@ -21,6 +21,8 @@ class Food {
     static update(id, attrs) {
         return database("foods").where("id", id).update(attrs)
                                 .returning(["id", "name", "calories"])
+                                .then(food => food[0])
+                                .catch(() => 0);
     };
 
     static delete(id) {

@@ -25,7 +25,9 @@ router.post("/", function(req, res, next) {
 // PATCH foods
 router.patch("/:id", function(req, res, next) {
     var id = req.url.split("/")[1];
-    Food.update(id, req.body.food).then(food => res.json(food[0]));
+    Food.update(id, req.body.food).then((food) => {
+        food ? res.json(food) : res.sendStatus(400); 
+    });
 });
 
 // DELETE foods
