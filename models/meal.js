@@ -10,6 +10,18 @@ class Meal{
         return database("meals").select("id", "name").map(this.foods);
     };
 
+    static find(id) {
+        return database("meals").select("id", "name")
+                                .where("id", id)
+                                .map(this.foods)
+                                .then((food) => {
+                                    return food[0];
+                                })
+                                .catch(() => {
+                                    return 0;
+                                });
+    };
+
     static foods(meal) {
         // select all items from foods, join on food_meals
         // where the food_meals meal_id is equal to this

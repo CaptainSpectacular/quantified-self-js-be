@@ -7,4 +7,11 @@ router.get("/", function(req, res, next) {
     Meal.all().then(meals => res.json(meals));
 });
 
+router.get("/:meal_id/foods", function(req, res, next) {
+    var id = req.url.split("/")[1];
+    Meal.find(id).then((meal) => {
+        meal ? res.json(meal) : next();
+    });
+});
+
 module.exports = router;
