@@ -9,7 +9,7 @@ class Food {
     };
 
     static find(id) {
-        return database("foods").where("id", id);
+        return database("foods").where("id", id).then(food => food[0]);
     };
 
     static create(attrs) {

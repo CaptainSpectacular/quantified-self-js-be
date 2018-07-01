@@ -10,7 +10,13 @@ router.get("/", function(req, res, next) {
 // GET food
 router.get("/:id", function(req, res, next) {
     var id = req.url.split("/")[1];
-    Food.find(id).then(food => res.json(food[0]));
+    Food.find(id).then((food) => {
+        if (food) {
+            res.json(food);
+        } else {
+            next();
+        };
+    });
 });
 
 //POST foods
