@@ -28,4 +28,18 @@ router.post("/:meal_id/foods/:food_id", function(req, res, next) {
     });
 });
 
+router.delete("/:meal_id/foods/:food_id", function(req, res, next) {
+    var meal_id = req.url.split("/")[1]
+    var food_id = req.url.split("/")[3]
+
+    Meal.remove_food(meal_id, food_id).then((meal) => {
+        console.log(meal);
+        
+        // This needs to change. It's way too unreliable.
+        var message = {"message": `Successfully removed ${meal[1]._rejectionHandler0.name} from ${meal[0]._rejectionHandler0.name}`}
+    }).catch((error) => {
+        next(); 
+    });;
+});
+
 module.exports = router;

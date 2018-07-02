@@ -29,6 +29,12 @@ class Meal{
                .return([Meal.find(meal_id), Food.find(food_id)]);
     };
 
+    static remove_food(meal_id, food_id) {
+        return database("food_meals").where({"meal_id": meal_id, "food_id": food_id})
+                                     .del()
+                                     .return([Meal.find(meal_id), Food.find(food_id)]);;
+    };
+
     static foods(meal) {
         // select all items from foods, join on food_meals
         // where the food_meals meal_id is equal to this
