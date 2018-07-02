@@ -8,8 +8,7 @@ class foodsController {
     };
 
     static show(req, res, next) {
-         var id = req.url.split("/")[1];
-         Food.find(id).then((food) => {
+         Food.find(req.params.id).then((food) => {
          food ? res.json(food) : next();
         });
     };
@@ -21,15 +20,13 @@ class foodsController {
     };
 
     static update(req, res, next) {
-        var id = req.url.split("/")[1];
-        Food.update(id, req.body.food).then((food) => {
+        Food.update(req.params.id, req.body.food).then((food) => {
         food ? res.json(food) : res.sendStatus(400);
         }); 
     };
 
     static destroy(req, res, next) {
-        var id = req.url.split("/")[1]; 
-        Food.delete(id).then(res.sendStatus(204)); 
+        Food.delete(req.params.id).then(res.sendStatus(204)); 
     };
 };
 
