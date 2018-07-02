@@ -1,45 +1,10 @@
 var express = require("express");
 var router = express.Router();
-const Meal = require("../models/meal");
-const Food = require("../models/food");
+const mealsController = require("../controllers/mealsController");
 
-// GET meals
-router.get("/", function(req, res, next) {
-    Meal.all().then(meals => res.json(meals));
-});
-
-router.get("/:meal_id/foods", function(req, res, next) {
-    var id = req.url.split("/")[1];
-    Meal.find(id).then((meal) => {
-        meal ? res.json(meal) : next();
-    });
-});
-
-router.post("/:meal_id/foods/:food_id", function(req, res, next) {
-    var meal_id = req.url.split("/")[1]
-    var food_id = req.url.split("/")[3]
-
-    Meal.add_food(meal_id, food_id).then((meal) => {
-        // Figure out how to get the meal and food names
-        var message = {"message": `Successfully added ${meal[1]._rejectionHandler0.name} to ${meal[0]._rejectionHandler0.name}`}
-        meal ? res.json(message) : next();
-    }).catch((error) => {
-        next(); 
-    });
-});
-
-router.delete("/:meal_id/foods/:food_id", function(req, res, next) {
-    var meal_id = req.url.split("/")[1]
-    var food_id = req.url.split("/")[3]
-
-    Meal.remove_food(meal_id, food_id).then((meal) => {
-        console.log(meal);
-        
-        // This needs to change. It's way too unreliable.
-        var message = {"message": `Successfully removed ${meal[1]._rejectionHandler0.name} from ${meal[0]._rejectionHandler0.name}`}
-    }).catch((error) => {
-        next(); 
-    });;
-});
+router.get("/", mealsController.index);
+router.get("/:meal_id/foods", mealsController.show); 
+router.post("/:meal_id/foods/:food_id", mealsController.create); 
+router.delete("/:meal_id/foods/:food_id", mealsController.destroy);
 
 module.exports = router;
