@@ -26,13 +26,10 @@ class Meal{
     static add_food(meal_id, food_id) {
         return database("food_meals")
                .insert({meal_id: meal_id, food_id: food_id})
-               .return([Meal.find(meal_id), Food.find(food_id)]);
     };
 
     static remove_food(meal_id, food_id) {
-        return database("food_meals").where({"meal_id": meal_id, "food_id": food_id})
-                                     .del()
-                                     .return([Meal.find(meal_id), Food.find(food_id)]);;
+        return database("food_meals").where({"meal_id": meal_id, "food_id": food_id}).del();
     };
 
     static foods(meal) {
