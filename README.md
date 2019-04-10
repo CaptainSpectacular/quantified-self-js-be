@@ -1,6 +1,6 @@
 # README
 
-A backend for quantified-self-fe written in Rails.
+A backend for quantified-self-fe written in JavaScript.
 
 # Setup
 >Clone this repository
